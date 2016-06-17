@@ -1,0 +1,20 @@
+{
+	"name": "MongoDB_RESTAPI_NodejsApp",
+	"version": "0.0.1",
+	"description": "A sample nodejs app for Bluemix that leverages MongDB for data storage and reveals REST API routes for inserting, and getting data related to sensors and conditions.",
+	"scripts": {
+		"start": "node app.js"
+	},
+	"dependencies": {
+		"express": "4.12.x",
+		"cfenv": "1.0.x",
+		"mongodb": "latest",
+		"morgan": "~1.0.0",
+    	"body-parser": "~1.0.0",
+		"socket.io": "latest"
+	},
+	"repository": {},
+	"engines": {
+		"node": "0.12.x"
+	} 
+}

@@ -1,0 +1,250 @@
+<div id="video-container">
+    <video autoplay onended="videoEnded('admin')">
+		<source src="video/House_Intro_1280x800.mp4" type="video/mp4">
+    </video>
+</div>
+
+<div class="container admin-background">
+
+    <!-- Main Content -->
+    <div id="content-container">
+
+    	<div class="row">
+
+    		<!-- start ADMIN view -->
+	    	<div class="hidden-xs col-md-3 nav-width">
+
+				<button type="button" class="btn btn-primary btn-lg flaticon-arrows active">Home</button>
+				<button type="button" class="btn btn-primary btn-lg flaticon-arrows-3" ng-click="toggleModal('about')">About</button>
+				<button type="button" class="btn btn-primary btn-lg flaticon-circle" ng-click="toggleModal('setup')">Setup</button>
+				<button type="button" class="btn btn-primary btn-lg flaticon-arrows-1" ng-click="toggleModal('log')">Log</button>
+
+
+				<div class="last-actions-container">
+
+					<div class="last-actions">
+
+						<div class="animate-last-action" 
+						ng-class="{'slide-up': slideSensor, 'slide-down': !slideSensor}">
+							<div class="sensor-type">{{sensor_type_0}}</div>
+							<img src="{{sensor_image_0}}">
+						</div>
+
+						<div id="animate-last-actions" ng-click="updateLastAction();" class="lastAction {{color_0}}">{{lastAction_0}}</div>
+
+					</div>
+
+					<div class="last-actions animate-show animate-hide" ng-show="animate" ng-if="sensor_type_1">
+
+						<div class="animate-last-action" 
+						ng-class="{'slide-up': slideSensor, 'slide-down': !slideSensor}">
+							<div class="sensor-type">{{sensor_type_1}}</div>
+							<img ng-src="{{sensor_image_1}}">
+						</div>
+
+						<div class="lastAction {{color_1}}">{{lastAction_1}}</div>
+
+					</div>
+
+				</div>
+
+				<div id="animation-container">
+
+				    <div class="animate-slide" ng-show="slide" ng-click="slide=!slide;">
+
+				      	<div class="status-title">Status</div>
+
+				      	<div class="status-log">
+			      
+							<div class="title">Garage</div>
+							<div>&nbsp;&#45; {{garage_door}} {{garage_door_time}}</div>
+							<div>&nbsp;&#45; {{garage_block}} {{garage_block_time}}</div>
+							
+							<div class="title">Ft Door</div>
+							<div>&nbsp;&#45; {{front_door}} {{front_door_time}}</div>
+							<div>&nbsp;&#45; {{front_door_lock}} {{front_door_lock_time}}</div>
+							
+							<div class="title">Doorbell</div>
+							<div>&nbsp;&#45; {{front_doorbell}} {{front_doorbell_time}}</div>
+						
+						</div>
+
+				    </div>
+				      
+			    </div>
+
+    		</div>
+
+    		<div class="hidden-xs col-md-9">
+
+    			<div id="sensor_container">
+
+    				<div class="cloudIcon"><img src="images/Cloud_icon.png"></div>
+
+    				<div id="the_door_bell" ng-bind-html="the_door_bell"></div>
+    				<div id="the_front_door" ng-bind-html="the_front_door"></div>
+    				<div id="the_garage_door" ng-bind-html="the_garage_door"></div>
+
+    			</div>
+
+    		</div>
+
+    		<!-- end ADMIN view -->
+
+    	</div>
+
+    </div><!-- End Main Content -->
+   
+</div>
+
+<modal visible='showAboutModal' title="About this Demo">
+
+	<div class="container">
+
+		<div class="message"><p>To demonstrate a smart home vertical rapid path to product edge IoT solution using cloud data analytics, a proof of concept was created using the Grove* IoT Commercial Developer Kit, and scaled to an industrial solution using an Intel® IoT Gateway, industrial sensors, Wind River Linux* 7 OS, and IBM* Bluemix* cloud services. This solution monitors the status of a home’s front door and garage door for increased security. The gateway gathers data from a doorbell, a garage door application, stepper motors, and magnetic sensors for edge data analytics and monitoring.</p></div>
+
+	</div>
+
+</modal>
+
+<modal id='showSetupModal' visible='showSetupModal' title="Setup Instructions">
+
+	<div class="container completed-step show">
+		<div class="message"><p>Completed setup view:</p></div>
+		<img class='img-responsive' src='images/Experience_Kit_SmartHome1.jpg'>
+	</div>
+
+	<div class="container all-parts hidden">
+
+		<div class="message">
+			<p>The following parts are required for this use case. Mouse over each part to get more information or see what the finished setup looks like. </p>
+	      	<p>Close to go to the use case.</p>
+	    </div>
+
+		<div class="row row-centered">
+
+			<div class="parts-hover sensor col-centered" id="item_button2" data-toggle="popover" data-trigger="hover focus" title="Light Sensor" data-container="body" data-content="<p>Detects the intensity of the ambient light.</p><img class='img-responsive' src='images/A0_Light_Sensor.jpg'><br/><p><strong>Instructions:</strong></p><p>Plugs in to <strong>AO</strong> connector of Arduino Sheild.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Light_Sensor.png">Light Sensor</div>
+
+			<div class="parts-hover sensor col-centered" id="item_button" data-toggle="popover" data-trigger="hover focus" title="Grove Button" data-container="body" data-content="<p>One independent button, configured with pull-down resistor.</p><img class='img-responsive' src='images/D5_button.jpg'><br/><p><strong>Instructions:</strong></p><p>Plugs in to <strong>D5</strong> connector of Arduino Sheild.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Button.png">Button</div>
+
+			<div class="parts-hover sensor col-centered" id="item_led" data-toggle="popover" data-trigger="hover focus" title="Rotary Sensor" data-container="body" data-content="<p>Encodes a rotation signal into electronic pulses that can be used to measure rotation and direction.</p><img class='img-responsive' src='images/D4_Rotary_Sensor.jpg'><br/><p><strong>Instructions:</strong></p><p>Plugs into <strong>D8</strong> connector of Arduino Shield</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Rotary_Sensor.png">Rotary Sensor</div>
+
+			<div class="parts-hover sensor col-centered" id="item_led2" data-toggle="popover" data-trigger="hover focus" title="LED Socket Kit (Green LED)" data-container="body" data-content="<p>Will illuminate an LED when the output is high.</p><img class='img-responsive' src='images/D4_GreenLED.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug into D4 connector of Arduino Shield</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/LED-Green.png">LED Socket Kit (Green LED)</div>
+
+			<div class="parts-hover sensor col-centered" id="item_buzzer" data-toggle="popover" data-trigger="hover focus" title="Buzzer" data-container="body" data-content="<p>Will emit a tone when the output is high.</p><img class='img-responsive' src='images/D7_buzzer.jpg'><br/><p><strong>Instructions:</strong></p><p>Plugs into D7 of the Arduino Shield.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Buzzer.png">Buzzer</div>
+
+		</div>
+
+		<div class="row row-centered">
+
+			<div class="parts-hover sensor col-centered" id="item_touch" data-toggle="popover" data-trigger="hover focus" title="Touch Sensor" data-container="body" data-content="<p>It can detect the change in capacitance when a finger is near it.</p><img class='img-responsive' src='images/D6_touch.jpg'><br/><p><strong>Instructions:</strong></p><p>Plugs into D6 of Arduino Shield.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Touch.png">Touch Sensor</div>
+
+			<div class="parts-hover motor col-centered" id="item_stepper" data-toggle="popover" data-trigger="hover focus" title="Stepper Motor" data-container="body" data-content="<p>Will rotate clockwise or counterclockwise</p><img class='img-responsive' src='images/Motor.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug wires into the following order on the Arduino Shield pinouts: GND > GND, VCC > 5V, IN1 > 8, IN2 > 9, IN3 > 10, IN4 > 11</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Motor.png">Stepper Motor</div>
+
+			<div class="parts-hover stepper col-centered" id="item_stepper" data-toggle="popover" data-trigger="hover focus" title="Stepper Driver" data-container="body" data-content="<p>Will rotate clockwise or counterclockwise</p><img class='img-responsive' src='images/Motor.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug wires into the following order on the Arduino Shield pinouts: GND > GND, VCC > 5V, IN1 > 8, IN2 > 9, IN3 > 10, IN4 > 11</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Stepper.png">Stepper Driver</div>
+
+			<div class="parts-hover lcd col-centered" id="item_lcd" data-toggle="popover" data-trigger="hover focus" title="LCD RGB Backlight Module" data-container="body" data-content="<p>This display enables you to set the color to whatever you like. Also support user defined characters.</p><img class='img-responsive' src='images/12C_backlight.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug into <strong>I2C</strong> in Arduino Shield.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Screen.png">LCD RGB Backlight Module</div>
+
+		</div>
+
+		<div class="row row-centered">
+
+			<div class="col-xs-6 col-centered">
+
+				<div class="row row-centered">
+
+						<div class="parts-hover nuc col-centered" id="item_nuc" data-toggle="popover" data-trigger="hover focus" title="NUC" data-container="body" data-content="<p>As an expansion board, Base Shield v2 has many Grove connectors, making it convenient for you to use Grove products together. And it is compatible with a series of Arduino products.</p><p><strong>Instructions:</strong></p><img class='img-responsive' src='images/NUC_large_144.jpg'><br/><p>Plug the Arduino Shield into the <strong>Galileo Gen 2 pinouts</strong>.</p>" data-placement="right" data-html="true"><img class="img-responsive" src="images/NUC_trans.png">NUC</div>				
+
+				</div>
+
+			</div>
+
+			<div class="col-xs-6 col-centered">
+
+				<div class="row row-centered">
+
+					<div class="parts-hover sheild col-centered" id="item_arduino" data-toggle="popover" data-trigger="hover focus" title="Arduino Shield" data-container="body" data-content="<p>As an expansion board, Base Shield v2 has many Grove connectors, making it convenient for you to use Grove products together. And it is compatible with a series of Arduino products.</p><p><strong>Instructions:</strong></p><img class='img-responsive' src='images/BaseSheild_pop.jpg'><br/><p>Plug the Arduino Shield into the <strong>Galileo Gen 2 pinouts</strong>.</p>" data-placement="left" data-html="true"><img class="img-responsive" src="images/Sheild_cables.png">Arduino Shield</div>
+
+				</div>
+
+				<div class="row row-centered">
+
+					<div class="parts-hover arduino col-centered" id="item_101" data-toggle="popover" data-trigger="hover focus" title="Arduino 101" data-container="body" data-content="<p>Intel Galileo Gen development board, the first in a family of Arduino certified development boards base on Intel architecture.<img class='img-responsive' src='images/Arduino_341x213.jpg'><br/></p>" data-placement="left" data-html="true"><img class="img-responsive" src="images/arduino_101.png">Arduino 101</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" id="help_next">View All Parts</button>
+	</div>
+
+	<script type="text/javascript">
+		
+	$(document).ready(function(){
+
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        })
+
+	    // Help Modal
+	    $('#help_next').click( function () {
+
+	        $('.completed-step').toggleClass('hidden');
+	        $('.completed-step').toggleClass('show');
+
+	        $('.all-parts').toggleClass('show');
+	        $('.all-parts').toggleClass('hidden');
+
+	        if($(this).text()=='View All Parts') {
+	          $(this).text('View Finished Setup');
+	        } else {
+	          $(this).text('View All Parts');
+	        }
+
+	    });
+
+	});
+	</script>
+
+</modal>
+
+<modal id="showLogModal" visible='showLogModal' title="View Log">
+
+	<div class="container log_container">
+		
+	    <div class="rows" ng-init="$parent.selected = $index" ng-repeat="sensor in logObj" ng-class-odd="'odd'" ng-class-even="'even'">
+	        <div class="bg-img {{sensor.name}}_{{sensor.status}}_icon"></div>
+	        <div class="title">{{smartApps[sensor.name][sensor.status].desc}}</div>
+	        <div class="plot" ng-repeat="lr in data.log_response" ng-if="lr.name === sensor.name && lr.status === sensor.status" ng-init="$index2 = $index">
+	        	<div class="{{sensor.name}}_{{sensor.status}} {{'c'+data.log_times[sensor.name+'_'+sensor.status]}}">{{data.log_response[$index2].timestamp | limitTo : 10 : -10}}</div>
+	        </div>
+	    </div>
+
+   	</div>
+
+    <div class="container range">
+    	<div class="date">{{date | date:'EEEE d, yyyy'}}</div>
+    	<div class="scale">
+
+    		<div class="border" ng-repeat="i in [0,1,2,3,4,5,6,7]">&nbsp;</div>
+    		
+    	</div>
+    	<br class="clear"/>
+    </div> 
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+
+</modal>
+
+<div ng-repeat="smartApp in smartApps">
+	<button ng-click="saveToJson(smartApp.name,smartApp.status);">{{smartApp.name}}</button>
+</div>
+
+<!-- <pre>{{data | json}}</pre> -->

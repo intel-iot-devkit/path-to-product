@@ -1,0 +1,18 @@
+{
+  "name": "SmartHome-Application",
+  "description": "",
+  "version": "0.0.0",
+  "main": "main.js",
+  "engines": {
+    "node": ">=0.10.0"
+  },
+  "dependencies": {
+      "socket.io-client":"latest",
+      "paralleljs":"latest",
+      "socket.io":"latest",
+      "express": "4.12.x",
+      "morgan": "~1.0.0",
+      "body-parser": "~1.0.0",
+      "sqlite3": "latest"
+  }
+}

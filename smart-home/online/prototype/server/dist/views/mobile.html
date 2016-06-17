@@ -1,0 +1,49 @@
+<div id="video-container">
+    <video id="video" class="video" autoplay onloadstart="resizeVideo()" onended="videoEnded('mobile')">
+		<source src="video/Intro_432_288_Phone.mp4" type="video/mp4">
+    </video>
+</div>
+
+<div id="content-container" class="container mobile-background">
+
+    <div class="container top">
+
+        <img class="img-responsive" src="images/mobile-top.1ad81a68.jpg"/>
+
+    </div>
+
+    <div class="container middle">
+
+        <div class="row">
+
+            <div id="the_garage_door" ng-bind-html="mobile_garage_door"></div>
+
+        </div>
+
+    </div>
+
+    <div class="container bottom">
+
+        <img class="img-responsive" src="images/mobile-bottom.c6b9d44f.jpg"/>
+
+        <div class="row controls row-centered">
+
+            <div class="col-xs-6 open-btn col-centered">
+
+                <img ng-click="modelReact('open')" class="img-btn img-responsive" src="images/mobile-button-up.ce26eb8d.png" alt="">
+                <img class="img-copy img-responsive" src="images/Text_open.0ae10ef9.png" alt="">
+
+            </div>
+
+            <div class="col-xs-6 close-btn col-centered">
+
+                <img ng-click="modelReact('close')" class="img-btn img-responsive" src="images/mobile-button-down.5d9a8cbb.png" alt="">
+                <img class="img-copy img-responsive" src="images/Text_close.992f9a92.png" alt="">
+
+            </div>
+
+        </div>
+
+    </div>  
+   
+</div>
