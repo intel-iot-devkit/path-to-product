@@ -20,7 +20,7 @@ npm install sqlite3
 ```
 
 ####Getting Started
-In order to access the GPIO pins on your board, you are required to declare the mraa library. Mraa is a C/C++ library with bindings to JavaScript* & Python* to interface with the IO on Intel® Galileo and Edison boards, as well as other platforms, with a structured API where port names/numbering matches the board that you are developing on.
+In order to access the GPIO pins on your board, you are required to declare the mraa library. Mraa is a C/C++ library with bindings to JavaScript* & Python* to interface with the IO on Intel® Galileo and Intel® Edison boards, as well as other platforms, with a structured API where port names/numbering matches the board that you are developing on.
 
 ```javascript    
 var mraa = require("mraa");
