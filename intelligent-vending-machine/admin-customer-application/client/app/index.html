@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Intelligent Vending</title>
+
+    <link rel="stylesheet" href="styles/main.css" media="screen">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+  </head>
+
+  <body ng-app="intelligentVendingApp">
+
+  	<div class="body-container">
+
+  		<div ng-view></div>
+        
+        <br>
+        <div class="init-start hide" style="text-align:center;" ng-if="!PartitionKey">
+            <form action="index.html/#/admin" method="get" id="start">
+                <input id="PartitionKey" type="text" ng-model="PartitionKey" value="{{PartitionKey}}"/>
+                <input type="submit" name="submit" value="Start" class="btn btn-primary">
+            </form>
+        </div>
+
+  	</div>
+
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap-sass-official/assets/javascripts/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <script src="scripts/hmac-sha256.js"></script>
+    <script src="scripts/enc-base64-min.js"></script>
+
+    <!-- build:js({.tmp,app}) scripts/d3.js -->
+    <!-- endbuild -->
+   <script>
+
+    var configData = {
+
+        "minTemperatureThreshold": 18, 
+        "maxTemperatureThreshold": 30, 
+        "prodPerTray": 10, 
+        "coilError": false,
+        "inventoryError": false,
+
+        "mobile_images": {
+            "authorizing": 'Coin-Spin.gif',
+            "dispensing": 'Bottle-Drop.gif',
+            "thanks": 'Success.gif',
+            "error": 'Failure.gif'
+            },
+
+        "machineStates": {
+            "load": "Door-Closed.png",
+            "open": "Door-Opening.gif",
+            "closed": "Door-Closing.gif",
+            "coilError": "Coil-Error.gif",
+            //"inventoryError": "Inventory-Error.gif",
+            "temperatureError": "Temp-Error.gif",
+            "temperatureError2": "Temp-Error2.gif",
+            "dispensing": "Product-Falling.gif"
+            },
+
+        "messages": {
+            "low": {
+                "title": "Low Temperature", 
+                "message": "Temperature exceeded minimum threshold."
+            },
+            "high": {
+                "title": "High Temperature", 
+                "message": "Temperature exceeded maximum threshold."
+            },
+            "coil": {
+                "title": "Coil Error", 
+                "message": "There is an error at tray "
+            },
+            "machine_opened": {
+                "title": "Machine Opened", 
+                "message": "There machine door has opened"
+            },
+            "default": {
+                "title": "No Alerts", 
+                "message": "At this time."
+            },
+            "inventory": {
+                "title": "Low inventory alert", 
+                "message": "Low inventory at tray #"
+            }
+        }
+    };
+
+    </script>
+
+    <script src="scripts/d3.min.js"></script>
+    <script src="scripts/moment.min.js"></script>
+    <script src="scripts/radialProgress.js"></script>
+    <script src="scripts/demo-core.js"></script>
+
+    <script>
+
+    /* Cookie handling */
+    function createCookie(name,value,days) {
+        if (days) {
+            var date = new Date();
+            date.setTime(date.getTime()+(days*24*60*60*1000));
+            var expires = "; expires="+date.toGMTString();
+        }
+        else var expires = "";
+        document.cookie = name+"="+value+expires+"; path=/";
+    }
+
+    function readCookie(name) {
+        var nameEQ = name + "=";
+        var ca = document.cookie.split(';');
+        for(var i=0;i < ca.length;i++) {
+            var c = ca[i];
+            while (c.charAt(0)==' ') c = c.substring(1,c.length);
+            if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+        }
+        return null;
+    }
+
+    function eraseCookie(name) {
+        createCookie(name,"",-1);
+    }
+
+    $(document).ready(function() {
+
+        if (location.href.split(location.host)[1] === '/#/'){
+
+            /*
+            Show the MAc address setter
+             */
+            $('.init-start').removeClass("hide");
+
+        }
+
+        /* read the PartitionKey address field and save it to a cookie */
+        $( "#start" ).submit(function( event ) {
+            event.preventDefault();
+            createCookie('PartitionKey',$("#PartitionKey").val(),1);
+            window.location.href = "/#/admin/";
+        });
+
+        if (location.href.split(location.host)[1] === '/#/admin'){
+
+            /*
+            Hide the MAc address setter
+             */
+            $('.init-start').addClass("hide");
+
+            var PartitionKey = readCookie('PartitionKey');
+            var unixTime = Math.floor((new Date()).getTime());
+
+            // TEMPERATURE ARC
+            var t1Degree = "C";
+            var t1_currentTemp = 25;
+
+            var t1_thresholdTemp = [];
+            t1_thresholdTemp.push(configData.minTemperatureThreshold);
+            t1_thresholdTemp.push(configData.maxTemperatureThreshold);
+
+            var t1_temp_threshold = [];
+            t1_temp_threshold.push(d3.select(document.getElementById('t1_temp_thresholdMin')));
+            t1_temp_threshold.push(d3.select(document.getElementById('t1_temp_thresholdMax')));
+            
+            var t1_temp_current = d3.select(document.getElementById('t1_temp_current'));
+
+            function refreshTemp() {
+
+                setArcs('t1_temp_threshold', 't1_temp_current', t1_thresholdTemp, t1_currentTemp, "vib");
+
+            }
+
+            function setArcs(thresholdDiv, currentDiv, thresholdValue, currentValue, arcType) {
+
+                if (t1Degree == "F") {
+
+                    var thresholdMin = thresholdValue[0] * 9 / 5 + 32;
+                    var thresholdMax = thresholdValue[1] * 9 / 5 + 32;
+                    var current = currentValue * 9 / 5 + 32;
+                    if (current < 55){ 
+                        current = 55;
+                    }else if (current > 95) {
+                        current = 95;
+                    }
+
+                }else if (t1Degree == "C") {
+
+                    var thresholdMin = thresholdValue[0];
+                    var thresholdMax = thresholdValue[1];
+                    var current = currentValue;
+                    if (current < 13){ 
+                        current = 13;
+                    }else if (current > 35) {
+                        current = 35;
+                    }
+
+                }
+
+                if(current < thresholdMin){
+                    var threshold = thresholdMin;
+                }else if(current > thresholdMax){
+                    var threshold = thresholdMax;
+                }else{
+                    var threshold = 0;
+                }
+               
+                currentDiv = $('#' + currentDiv);
+
+                if (t1Degree == "C") {
+
+                    var rp3 = radialProgress(currentDiv[0])
+                        .diameter(105)
+                        .minThresh(thresholdMin)
+                        .maxThresh(thresholdMax)
+                        .minValue(12)
+                        .maxValue(44)
+                        .threshold(threshold)
+                        .arctype(arcType)
+                        .value(current)
+                        .render();
+
+                }else if (t1Degree == "F") {
+
+                    var rp3 = radialProgress(currentDiv[0])
+                        .diameter(105)
+                        .minThresh(thresholdMin)
+                        .maxThresh(thresholdMax)
+                        .minValue(55)
+                        .maxValue(110)
+                        .threshold(threshold)
+                        .arctype(arcType)
+                        .value(current)
+                        .render();
+                }
+
+            }
+
+            $(document).on('click','.tempheader', function() {
+
+                var truckid = ($(this).parent().attr("id"));
+                $('#' + truckid + ' .fartemp').toggleClass('selected');
+                $('#' + truckid + ' .celtemp').toggleClass('selected');
+
+                if (truckid == "t1sensor") {
+                    if ($('#' + truckid + ' .fartemp').hasClass('selected')) {
+                        t1Degree = "F";
+                        DEMO_CORE.settings.temperature_units = "Fahrenheit";
+                    } else {
+                        t1Degree = "C";
+                        DEMO_CORE.settings.temperature_units = "Celsius";
+                    }
+                }
+
+                refreshTemp();
+            });
+     
+            function initializeDemoStatus() {
+
+                //resetDemoStatus();
+                DEMO_CORE.shouldPollSensors = true;
+            }
+
+            function pollLog() {
+
+                //console.log('pollLog');
+
+                if (DEMO_CORE.shouldPollSensors) {
+
+                    if(navigator.onLine) {
+
+                        //console.log('Temperature is ONLINE');
+
+                        var utctime = (new Date()).toUTCString();
+                        var CanonicalizedResource = '/iotvendingmachine/Events()';
+                        var StringToSign = 
+                                utctime + "\n" +
+                                CanonicalizedResource;
+
+                        var secretKey = '+bL2CajfZIi0K/DGql0ZGf9vbNWCvkKhVU2l8QlhH9Oprr283DCmrnwUG5MbsRFaBmDk9Q5AwbzkXckOe4KOkQ==';
+
+                        var signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(StringToSign), 
+                        CryptoJS.enc.Base64.parse(secretKey)));
+
+                        var urlPath = "https://iotvendingmachine.table.core.windows.net/Events()?$filter=EventType%20eq%20'temperature'%20and%20PartitionKey%20eq%20'"+PartitionKey+"'%20and%20(RowKey%20gt%20'm"+unixTime+"')&$select=PartitionKey,RowKey,EventType,EventDescription,Status,Val";
+                        var accountName = 'Insert your Azure account here';
+
+                        $.ajax({
+                            url: urlPath,
+                            type: 'GET',
+                            success: function (data) {
+
+                                sortByProperty( data.value, 'RowKey', true );
+
+                                var key = 0;
+                                //var key = Math.floor((Math.random() * data.value.length) - 1);
+
+                                var obj = data.value[key];
+
+                                if(typeof obj != 'undefined'){ 
+
+                                    obj.temp = obj.Val;
+
+                                    //obj.temp = 35;
+
+                                    // REMOVE FOR PRODUCTION //
+                                    //obj.temp = Math.floor(Math.random() * (configData.maxTemperatureThreshold - configData.minTemperatureThreshold + 1)) + configData.minTemperatureThreshold;
+
+                                    jQuery(document).trigger('DEMO_CORE.sensors.current', [obj]);
+
+                                }
+
+                            },
+                            beforeSend: function (xhr) {
+                                xhr.setRequestHeader('Authorization', "SharedKeyLite " + accountName + ":" + signature);
+                                xhr.setRequestHeader('x-ms-date', utctime);
+                                xhr.setRequestHeader('x-ms-version', ' 2013-08-15');
+                                xhr.setRequestHeader('Accept', 'application/json;odata=nometadata');
+                            },
+                            error: function (rcvData) {
+                                console.log(rcvData);
+                                console.log("Error fetching current sensor readings: " + textStatus + " / " + errorThrown);
+
+                            }
+                        });
+
+                    }else{
+
+                        console.log('Temperature is OFFLINE');
+
+                        $.ajax({
+                            url: 'http://0.0.0.0:3000/events/temperature',
+                            type: 'GET',
+                            success: function (data) {
+
+                                console.log('data',data);
+
+                                sortByProperty( data, 'RowKey', true );
+
+                                var key = 0;
+                                //var key = Math.floor((Math.random() * data.value.length) - 1);
+
+                                var obj = data[key];
+
+                                if(typeof obj != 'undefined'){ 
+
+                                    obj.temp = obj.Val;
+
+                                    //obj.temp = 35;
+
+                                    // REMOVE FOR PRODUCTION //
+                                    //obj.temp = Math.floor(Math.random() * (configData.maxTemperatureThreshold - configData.minTemperatureThreshold + 1)) + configData.minTemperatureThreshold;
+
+                                    jQuery(document).trigger('DEMO_CORE.sensors.current', [obj]);
+
+                                }
+
+                            },
+                            error: function (rcvData) {
+                                //console.log(rcvData);
+                                console.log("Error fetching current sensor readings: " + textStatus + " / " + rcvData);
+
+                            }
+                        });
+
+                    }
+
+                    // Set timer for next check
+                    DEMO_CORE.scheduleNextPoll(pollLog);
+
+           		} else {
+
+                    // Set timer for next check
+                    DEMO_CORE.scheduleNextPoll(pollLog);
+
+            	}
+
+            };
+
+            $(document).on('DEMO_CORE.sensors.current', function(event, data) {
+     
+                t1_currentTemp = data.temp;
+
+                refreshTemp();
+
+            });
+
+            initializeDemoStatus();
+
+            if(navigator.onLine) {
+                console.log('Temperature is ONLINE');
+            }
+
+            pollLog();
+
+        }
+
+    });
+
+    </script>
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <!-- endbuild -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/services.js"></script>
+    <script src="scripts/controllers.js"></script>
+    <script src="scripts/filters.js"></script>
+    <script src="scripts/directives.js"></script>
+        
+</body>
+</html>

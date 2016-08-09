@@ -1,0 +1,554 @@
+@import "variables.scss";
+
+@media screen and (min-width: 1024px) {
+
+	body {
+		background-color:black;
+	}
+
+	.container.mobile-mobile {
+		display:none;
+	}
+
+  	.container.admin-background {
+
+	    background: url('../images/background-1280.jpg') top center no-repeat;
+	    background-size: 100%;
+	    width:1024px;
+	    display: block;
+
+	   	.navigationWrapper {
+	      
+			height: 640px;
+			width: 340px;
+			padding-left: 32px;
+
+			.btn-primary,
+			.alerts_title {
+			    font-size: 22px;
+			}
+
+			button, {
+				margin-top:28px;
+			}
+
+			button:first-child {
+				margin-top:32px;
+			}
+
+			button.lastButton {
+				margin-bottom:28px;
+			}
+
+			button, .alerts_title {
+				height:38px;
+				line-height: 38px;
+				width:182px;
+				text-align: left;
+			}
+
+			.alertBorder {
+				-moz-box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+			    -webkit-box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+			    box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+			    max-width:182px;
+
+			}
+
+			.alertBorder.important {
+			    background-color:$intel-red;
+			    color: $intel-white !important;
+
+			    .alert_icon path {
+			    	fill: $intel-white !important;
+			    }
+
+			    .alerts_title, .alert_msg, .alert_msg span {
+			    	color: $intel-white !important;
+			    }
+
+			    .alerts_title:hover {
+			    	color: $intel-white !important;
+			    	background-color: $intel-red;
+			    }
+
+				.alert_close path {
+				  fill: $intel-white !important;
+				}
+
+			}
+
+			.alertBorder.not-important {
+			    background-color:$intel-white;
+
+			}
+
+			.alertBorder.thin {
+			    max-width:182px;
+			    border:1px solid $intel-button-border;
+
+			}
+
+			.alertBorder.fat {
+			    max-width:254px;
+			    border-left:1px;
+			    border-right:1px;
+			    border-bottom:1px;
+				border-width:1px;
+				border-style:solid;
+				border-color: $intel-button-border;
+			}
+
+			.alerts_title {
+				position:relative;
+			}
+
+			.alerts_title.small_alert_title {
+				width: 180px;
+
+		        .alert_cnt {
+		        	position:absolute;
+		        	z-index:2;
+					top: -17px;
+				    left: 164px;
+		        	width:32px;
+		        	height:32px;
+		        	background-color:$intel-inventory-red;
+				    -moz-border-radius: 50%;
+				    -webkit-border-radius: 50%;
+				   	border-radius: 50%;
+				   	font-family: "IntelClear_Rg";
+				   	font-size:21px;
+				   	color:$intel-white;
+				    padding: 0 0 0px 10px;
+				    line-height: 32px;	
+				    cursor: pointer;	   	
+		        }
+	        
+			} 
+
+			.alerts_title.big_alert_title {
+				width: 253px;
+			    border-bottom: 0;
+
+		        .alert_cnt {
+		        	position:absolute;
+		        	z-index:2;
+					top: -15px;
+				    left: 233px;
+		        	width:32px;
+		        	height:32px;
+		        	background-color:$intel-red;
+				    -moz-border-radius: 50%;
+				    -webkit-border-radius: 50%;
+				   	border-radius: 50%;
+				   	font-family: "IntelClear_Rg";
+				   	font-size:21px;
+				   	color:$intel-white;
+				    text-align: center;
+				    line-height: 32px;		   	
+		        }
+	        
+			} 
+
+			.alerts_container.small_alert {
+				width: 182px;
+
+				.alertBox {
+					display:none;
+				}
+
+			}
+
+			.alerts_container.big_alert {
+				padding-left: 0;
+			    border-top:0;
+
+		        .alertBox {
+		        	border-top:1px solid $intel-blue;
+		        	width:250px;
+		        	height: 76px;
+		 
+			        .alert_icon {
+					    width:20px;
+					    float:left;
+					    margin: 16px 19px 16px 39px;
+			        }
+
+
+					.alert_icon path {
+					  fill: #fc4c02;
+					}
+
+			        .alert_msg {
+					   	font-family: "IntelClear_Rg";
+					   	font-size:11px;
+					   	color:$intel-dark-blue;
+					   	width: 160px;
+					   	float:left;
+					    line-height: 18px;
+					    margin-top: 4px;
+
+					    span {
+					    	color:$intel-button-border
+					    }
+
+			        }
+
+			        .alert_close {
+					    width:16px;
+					    float:left;
+					    margin: 16px;
+					    cursor: pointer;
+			        }
+
+					.alert_close path {
+					  fill: $intel-dark-blue;
+					}
+
+			        .alert_blue {
+					    width:42px;
+					    height:41px;
+					    background: url('../images/light-blue-x.jpg') no-repeat;
+					    zoom: 50%;
+			        }
+
+			        .alert_red {
+					    width:33px;
+					    height:32px;
+					    background: url('../images/red-x.jpg') no-repeat;
+					    zoom: 50%;
+			        }
+
+		        }
+
+	        } 
+
+	    }
+
+	  	.mainWrapper {
+		    position: relative;
+		    top: 10px;
+		    left: 0;
+
+	  		.cloudIcon {
+				position:absolute;
+			    top: 25px;
+			    left: -82px;
+			    z-index:2;
+			    width:32px;
+			    height:33px;
+			    background: url('../images/Cloud-Icon.svg') no-repeat;
+	  		}
+
+	  		.intelLogo {
+				position:absolute;
+			    top: 17px;
+			    left: 628px;
+			    z-index: 2;
+			    width: 64px;
+			    height: 41px;
+			    color:$intel-light-blue;
+	  		}
+
+			.intelLogo path {
+			  fill: currentColor;
+			}
+
+			.inventoryWrapper {
+				position:absolute;
+			    top: 46px;
+			    left: -4px;
+				height:124px;
+				z-index:2;
+
+				.header {
+					font-family: "IntelClear_Bd";
+					color: $intel-dark-blue;
+					font-size: 22px;
+					margin-bottom:14px;		
+					font-weight:bold;	
+					text-align: center;	
+
+					span {
+						cursor: pointer;
+					}
+
+				}
+
+				.graphContainer {
+
+					font-weight:normal;
+
+					.title {
+						float:left;
+						width:91px;
+						font-size: 17px;
+						margin-bottom:3px;
+						font-family: "IntelClear_Rg";
+						color: $intel-dark-blue;
+					}
+
+					.stock {
+					    -moz-border-radius: 20px;
+					    -webkit-border-radius: 20px;
+					   	border-radius: 20px;
+						background-color:$intel-white;
+						float:left;
+						width:200px;
+						height:17px;
+						margin-top: 5px;
+
+						div {
+							height:17px;
+						    -moz-border-radius: 20px;
+						    -webkit-border-radius: 20px;
+						   	border-radius: 20px;
+						}
+
+						.low {
+							background-color:$intel-inventory-red;
+						}
+
+						.med {
+							background-color:$intel-light-blue;
+						}
+
+						.high {
+							background-color:$intel-dark-blue;
+						}
+
+					}
+				}
+
+
+
+			}
+
+			.coilWrapper {
+				position:absolute;
+			    top: 439px;
+			    left: -10px;
+				width:280px;
+				height:60px;
+				z-index:3;
+				text-align: center;
+
+				.header {
+					font-family: "IntelClear_Bd";
+					color: $intel-dark-blue;
+					font-size: 21px;
+					margin-bottom:0px;		
+					margin-bottom:16px;
+				}
+
+				.status {					
+
+			  		.checkIcon {
+					    color: $intel-dark-blue;
+						width: 22px;
+						display: inline-block;
+					    margin: 0 12px 0 0px;
+					    vertical-align: middle;
+
+			  		}
+
+					.checkIcon path {
+					  fill: currentColor;
+					}
+
+			  		.alertIcon {
+					    color: $intel-orange;
+						width: 22px;
+						display: inline-block;
+					    margin: 0 12px 0 0px;
+					    vertical-align: middle;
+
+			  		}
+
+					.alertIcon path {
+					  fill: currentColor;
+					}
+
+					span{
+						font-family: "IntelClear_Rg";
+						color: $intel-dark-blue;
+						font-size: 17px;
+						display:inline-block;
+					    vertical-align: middle;
+					}
+
+				}
+
+			}
+
+			.unitWrapper {
+				position:absolute;
+			    top: 22px;
+			    left: 304px;
+				z-index:4;
+
+				img {
+					width:396px;
+					height:516px;
+				}
+
+			}
+
+			.temperatureWrapper {
+				position:absolute;
+			    top: 212px;
+			    left: -30px;
+				width:280px;
+				height:208px;
+				z-index:5;
+
+				.sensor {
+				  text-align: center;
+				  color: $intel-dark-blue;
+				  font-size: 22px;
+				}
+
+				.tempsensor {
+				  position:relative;
+				}
+
+				.radialThreshold {
+					width:175px;
+					height:162px;
+					z-index:6;
+					background: url('../images/radial-thresholds.png');
+					background-size: 175px 162px;
+    				background-repeat: no-repeat;
+				}
+
+				.tempheader{
+				  padding-left: 57px;
+					width: 100%;
+					text-align: center;
+					font-family: "IntelClear_Bd";
+				}
+
+				.tempsensor span {
+				  cursor: pointer;
+				}
+
+				.tempsensor span.selected {
+				  color: $intel-light-blue;
+				}
+
+				.tempgauge {
+				  	position: absolute;
+				    left: 36px;
+				    top: 19px;
+					zoom: 1.3;
+				}
+
+				.arc {
+				    stroke-weight: 0.1;
+				    fill: #e1e1e1;
+				}
+
+				.thresholdArcMin {
+					position: absolute;
+					left: 3px;
+				    top: 17px;
+				}
+
+				.thresholdArcMin .arc {
+				    stroke-weight: 0.1;
+				    fill: $intel-white;
+				}
+
+				.thresholdArcMin .component {
+				    fill: $intel-dark-blue;
+				}
+
+				.thresholdArcMax {
+				  position: absolute;
+				  left: -13px;
+				  top: 0px;
+				}
+
+				.thresholdArcMax .arc {
+				    stroke-weight: 0.1;
+				    fill: $intel-white;
+				}
+
+				.thresholdArcMax .component {
+				    fill: $intel-dark-blue;
+				}
+
+				.txtthreshold {
+				  font-size: 2.3rem;
+				  font-family: 'IntelClear_Lt';
+				  fill: #e1e1e1;
+				}
+
+				.txtcurrent {
+				  font-size: 4rem;
+				  font-family: 'IntelClear_Lt';
+				  display: none;
+				}
+
+				.txtthreshold {
+				  fill: $intel-dark-blue;
+				}
+
+				.txtcurrent {
+				  fill: $intel-dark-blue;
+				  display: block;
+				}
+
+				.currentArc {
+				  	position: absolute;
+					left: -36px;
+				    top: 28px;
+				}
+
+				.currentArc .arc {
+				    stroke-weight: 0.1;
+				    fill: $intel-dark-blue;
+				}
+
+				.currentArc .component {
+				    fill: $intel-blue;
+				}
+
+				.currentArc g.problem .arc {
+				    stroke-weight: 0.1;
+				    fill: $intel-red;
+				}
+
+				.currentArc g.problem .txtcurrent {
+				    fill: $intel-red;
+				}
+
+				g.images image {
+					display: none;
+				}
+
+				.selectedRadial {
+				    -moz-border-radius: 3px;
+				    -webkit-border-radius: 3px;
+				   	border-radius: 3px;
+				    background: #f4f4f4;
+				    color: #000;
+				    fill: #FFFFFF;
+				}
+
+				.radial {
+				    -moz-border-radius: 3px;
+				    -webkit-border-radius: 3px;
+				   	border-radius: 3px;
+				    background: #FFFFFF;
+				    color: #000;
+				}
+
+			} // end .temperatureWrapper
+
+	  	}
+
+  	} 
+
+}

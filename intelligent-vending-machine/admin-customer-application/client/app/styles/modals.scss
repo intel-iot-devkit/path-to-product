@@ -1,0 +1,371 @@
+@import "variables.scss";
+
+.modal-dialog {
+	width: 90% !important;
+	font-family: 'IntelClear_Lt';
+
+	strong {
+		font-family: 'IntelClear_Bd';
+	}
+
+	.modal-header {
+	    padding: 0;
+	    margin: 15px;
+
+		.modal-title {
+			text-transform:uppercase;
+			color: $intel-blue;
+			font-family: 'IntelClear_Bd';
+		}
+
+		.close {
+			font-size: 40px;
+			margin: -2px 20px 0 0;
+		}
+
+		h4 {
+		    font-size: 22px;
+		    padding-top: 3px;
+		}
+		
+	}
+
+	.modal-body{
+		padding: 0;
+
+		.message {
+			font-size:14px;
+		}
+
+		.modal-footer {
+		  background-color: $intel-blue;
+		  margin-top:20px;
+		}
+
+	}
+
+}
+
+
+#showAboutModal {
+
+	.modal-body{
+
+		.container{
+			width:98%;
+			margin-bottom: 20px;
+		}
+
+	}
+
+}
+
+#showSetupModal {
+
+	.parts-hover{
+	  opacity: 0.5;
+	}
+
+	.parts-hover:hover{
+	  opacity: 1;
+	}
+
+	.sensor{
+		width:110px;
+	    font-size: 13px;
+	    text-align: center;
+	    vertical-align: top;
+	    margin: 0px 25px;
+	}
+
+	.sheild-lcd {
+		width:205px;
+		margin-top:40px;
+		text-align: center;
+	}
+
+	.nuc {
+		width: 250px;
+		margin-top:40px;
+		text-align: center;
+	}
+
+	.stepper {
+		width:150px;
+		margin-top:40px;
+		text-align: center;
+	}
+
+	.arduino {
+		width:600px;
+		height:350px;
+		font-size: 13px;
+		text-align: center;
+
+		img {
+			height:350px;
+		}
+	}
+
+	.popover {
+		position: absolute;
+	}
+
+	.popover-title {
+		color: $intel-blue;
+		font-family: 'IntelClear_Bd';
+	}
+
+}
+
+#showInventoryModal {
+
+	.modal-dialog {
+		width: 815px !important;
+		color:$intel-dark-blue;
+
+		.modal-content {
+
+
+			.modal-header {
+				border:0;
+				padding-left:45px;
+				margin:0;
+
+				.close {
+					font-size: 40px;
+					margin: -2px 20px 0 0;
+				}
+
+				h4 {
+				    margin-top: 18px;
+				    font-size: 22px;
+    			}
+				
+			}
+
+			.modal-body {
+			    padding: 11px 45px 45px 45px;
+			    font-size: 13px;
+
+				.heading {
+					float:left;
+					text-transform:uppercase;
+				}
+
+				hr.inventory {
+					margin: 8px 0 0 0;
+				}
+
+				.inventory{
+					margin-top:25px;
+					font-size: 18px;
+
+					.product {
+						float:left;
+
+						.count {
+							width:35px;
+							float:left;
+						}
+
+						.graph {
+							width:360px;
+						    -moz-border-radius: 20px;
+						    -webkit-border-radius: 20px;
+						   	border-radius: 20px;
+							background-color:$intel-inventory-grey;
+							float:left;
+							height:17px;
+
+							div {
+								height:17px;
+							    -moz-border-radius: 20px;
+							    -webkit-border-radius: 20px;
+							   	border-radius: 20px;
+							}
+
+							.low {
+								background-color:$intel-inventory-red;
+							}
+
+							.med {
+								background-color:$intel-light-blue;
+							}
+
+							.high {
+								background-color:$intel-dark-blue;
+							}
+
+						}
+
+					}
+
+				}
+
+				.product{
+					width:150px;
+				}
+
+				.quantity{
+					width:420px;
+				}
+
+				.tray{
+					width:100px;
+				}
+
+				.price{
+					width:50px;
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+#showActivityLog {
+
+	.modal-dialog {
+		width: 815px !important;
+		color:$intel-dark-blue;
+
+		.modal-content {
+
+			.modal-header {
+				padding:05px;
+				margin:15px;
+
+				.close {
+					font-size: 40px;
+					margin: -2px 20px 0 0;
+				}
+
+				h4 {
+				    font-size: 22px;
+    			}
+				
+			}
+
+			.modal-body {
+			    padding: 11px 45px 45px 45px;
+			    font-size: 13px;
+
+			    .activity-log{
+			    	width:100%;
+
+					.activity-container{
+						padding-bottom: 13px;
+						border-bottom:1px solid $intel-inventory-grey;
+						width:100%;
+
+						.row {
+							padding-top: 7px;
+
+							.event-title {
+								font-family: 'IntelClear_Bd';
+								font-size:12px;
+							}
+
+							.events-table{
+								-moz-border-radius: 20px;
+							    -webkit-border-radius: 20px;
+							   	border-radius: 20px;
+								height:15px;
+								background-color:$intel-inventory-grey;
+								padding:2px 0;
+								position:relative;
+
+								.event {
+									-moz-border-radius: 20px;
+								    -webkit-border-radius: 20px;
+								   	border-radius: 20px;
+								   	position:absolute;
+							   		background-color:red;
+							   		width:11px;
+							   		height:11px;
+								}
+							   	.hour1 {
+							   	}
+								.dispense{
+									background-color: $intel-log-green;
+								}
+								.alert2{
+									background-color: $intel-log-red;
+								}
+								.timeline{
+									background-color: $intel-log-blue;
+								}
+
+							}
+
+						}
+
+					}
+					.activity-container:last-of-type{
+						border-bottom:0;
+					}
+
+			    	.title, .activity-container.door-status{
+			    		font-size:15px !important;
+			    		font-family: 'IntelClear_Rg' !important;
+			    		margin-top:10px;
+			    	}
+
+			    	.activity-container.door-status{
+
+			    		.event-title{
+				    		padding-left: 0;
+				    		font-size:15px !important;
+				    		font-family: 'IntelClear_Rg' !important;
+				    	}
+				    	.events-table {
+				    		margin-top: 5px;
+				    	}
+			    	}
+
+			    	.activity-container.timeline {
+			    		margin-top: 20px;
+
+						.times {
+							padding:0;
+							font-family: 'IntelClear_Bd';
+							font-size:10px;
+						}
+
+						.times.right {
+							text-align: right;
+						}
+
+						.times .row{
+							margin: 0;
+						}
+
+						.row {
+							padding-top: 0px;
+						}
+
+						.event-title {
+				    		font-size:13px;
+				    		color:$intel-blue
+				    	}
+						
+						.events-table {
+				    		background-color:$intel-log-blue !important;
+				    	}
+						
+					}
+
+				}
+
+			}
+
+		}
+
+	}
+
+}
+

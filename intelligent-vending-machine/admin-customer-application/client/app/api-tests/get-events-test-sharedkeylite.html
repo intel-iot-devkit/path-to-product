@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title></title>
+
+  </head>
+
+  <body>
+
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
+
+    <script>
+
+      var utctime = (new Date()).toUTCString();
+      var CanonicalizedResource = '/iotvendingmachine/Events()';
+      var StringToSign = 
+                utctime + "\n" +
+                CanonicalizedResource;
+
+      var secretKey = '+bL2CajfZIi0K/DGql0ZGf9vbNWCvkKhVU2l8QlhH9Oprr283DCmrnwUG5MbsRFaBmDk9Q5AwbzkXckOe4KOkQ==';
+
+      var signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(StringToSign), 
+        CryptoJS.enc.Base64.parse(secretKey)));
+
+      var urlPath = "https://iotvendingmachine.table.core.windows.net/Events()?&$filter=EventType%20eq%20'temperature'&$select=PartitionKey,RowKey,EventType,EventDescription,Status,Val";
+      var accountName = 'Insert your Azure account here';
+
+      $.ajax({
+              url: urlPath,
+              type: 'GET',
+              success: function (data) {
+                  console.log(data.value);
+              },
+              beforeSend: function (xhr) {
+                  xhr.setRequestHeader('Authorization', "SharedKeyLite " + accountName + ":" + signature);
+                  xhr.setRequestHeader('x-ms-date', utctime);
+                  xhr.setRequestHeader('x-ms-version', ' 2013-08-15');
+                  xhr.setRequestHeader('Accept', 'application/json;odata=nometadata');
+              },
+              error: function (rcvData) {
+                  console.log(rcvData);
+              }
+          });
+
+
+    </script>
+ 
+ Look at the Console!       
+</body>
+</html>

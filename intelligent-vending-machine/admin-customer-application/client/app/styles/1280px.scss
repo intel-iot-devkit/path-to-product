@@ -1,0 +1,312 @@
+@import "variables.scss";
+
+@media screen and (min-width: 1280px) {
+
+  body {
+    background-color:black;
+  }
+
+  .container.admin-background {
+    background-size: 100%;
+    width:1280px;
+
+   	.navigationWrapper {
+      
+		height: 800px;
+		width: 370px;
+		padding-left: 40px;
+
+		.btn-primary,
+		.alerts_title {
+		    font-size: 27px;
+		}
+
+		button, {
+			margin-top:35px;
+		}
+
+		button:first-child {
+			margin-top:40px;
+		}
+
+		button.lastButton {
+			margin-bottom:35px;
+		}
+
+		button, .alerts_title {
+			height:48px;
+			line-height: 48px;
+			width:228px;
+		}
+
+		.alertBorder {
+			-moz-box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+		    -webkit-box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+		    box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+		    max-width:228px;
+
+		}
+
+		.alertBorder.thin {
+		    max-width:228px;
+
+		}
+
+		.alertBorder.fat {
+		    max-width:318px;
+		}
+
+		.alerts_title.small_alert_title {
+			width: 226px;
+
+	        .alert_cnt {
+				top: -21px;
+			    left: 205px;
+	        	width:40px;
+	        	height:40px;
+			   	font-size:26px;
+			    padding: 0 0 0px 13px;
+			    line-height: 40px;	
+	        }
+        
+		} 
+
+		.alerts_title.big_alert_title {
+			width: 313px;
+
+	        .alert_cnt {
+				top: -19px;
+			    left: 292px;
+	        	width:40px;
+	        	height:40px;
+			   	font-size:26px;
+			    line-height: 40px;		   	
+	        }
+        
+		} 
+
+		.alerts_container.small_alert {
+			width: 228px;
+		}
+
+		.alerts_container.big_alert {
+
+	        .alertBox {
+	        	width:313px;
+	        	height: 95px;
+	 
+		        .alert_icon {
+				    width:25px;
+				    margin: 26px 17px 26px 35px;
+		        }
+
+		        .alert_msg {
+				   	font-size:13px;
+				   	width: 200px;
+				    line-height: 22px;
+				    margin-top: 5px;
+
+		        }
+
+		        .alert_close {
+				    width:20px;
+				    margin: 20px;
+		        }
+
+		        .alert_blue {
+				    width:42px;
+				    height:41px;
+		        }
+
+		        .alert_red {
+				    width:42px;
+				    height:41px;
+		        }
+
+	        }
+
+        } 
+
+    }
+
+  	.mainWrapper {
+	    top: 13px;
+	    left: 0;
+
+  		.cloudIcon {
+		    top: 31px;
+		    left: -103px;
+		    width:42px;
+		    height:41px;
+  		}
+
+  		.intelLogo {
+		    top: 21px;
+		    left: 786px;
+		    width: 80px;
+		    height: 52px;
+  		}
+
+		.inventoryWrapper {
+		    top: 57px;
+		    left: -5px;
+			height:155px;
+
+			.header {
+				font-size: 27px;
+				margin-bottom:18px;		
+
+			}
+
+			.graphContainer {
+
+				.title {
+					width:114px;
+					font-size: 21px;
+					margin-bottom:4px;
+				}
+
+				.stock {
+					width:250px;
+					height:22px;
+					margin-top: 6px;
+
+					div {
+						height:22px;
+					}
+
+				}
+
+			}
+
+		}
+
+		.coilWrapper {
+		    top: 549px;
+		    left: -7px;
+			width:350px;
+			height:75px;
+
+			.header {
+				font-size: 27px;
+				margin-bottom:0px;		
+				margin-bottom:20px;
+			}
+
+			.status {					
+
+		  		.checkIcon {
+					width: 28px;
+				    margin: 0 15px 0 0px;
+
+		  		}
+
+		  		.alertIcon {
+					width: 28px;
+				    margin: 0 15px 0 0px;
+
+		  		}
+
+				span{
+					font-size: 21px;
+				}
+
+			}
+
+		}
+
+		.unitWrapper {
+		    top: 28px;
+		    left: 380px;
+
+			img {
+				width:495px;
+				height:646px;
+			}
+
+		}
+
+		.temperatureWrapper {
+		    top: 265px;
+		    left: -45px;
+			width:350px;
+			height:260px;
+
+			.sensor {
+			  font-size: 27px;
+			}
+
+			.tempheader{
+			  	padding-left: 90px;
+				width: 100%;
+			}
+
+			.tempgauge {
+				left: 55px;
+			    top: 22px;
+			  	zoom: 1.5;
+			}
+
+			.arc {
+			    stroke-weight: 0.1;
+			}
+
+			.thresholdArcMin {
+			  left: 0px;
+			  top: 0px;
+			}
+
+			.thresholdArcMin .arc {
+			    stroke-weight: 0.1;
+			}
+
+			.thresholdArcMax {
+			  left: 0px;
+			  top: 0px;
+			}
+
+			.thresholdArcMax .arc {
+			    stroke-weight: 0.1;
+			}
+
+			.txtthreshold {
+			  font-size: 2.3rem;
+			}
+
+			.txtcurrent {
+			  font-size: 4rem;
+			}
+
+			.currentArc {
+			    left: -36.5px;
+			    top: 26px;
+			}
+
+			.currentArc .arc {
+			    stroke-weight: 0.1;
+			}
+
+			.currentArc g.problem .arc {
+			    stroke-weight: 0.1;
+			}
+
+			.selectedRadial {
+			    -moz-border-radius: 3px;
+			    -webkit-border-radius: 3px;
+			   	border-radius: 3px;
+			}
+
+			.radial {
+			    -moz-border-radius: 3px;
+			    -webkit-border-radius: 3px;
+			   	border-radius: 3px;
+			}
+
+		} // end .temperatureWrapper
+
+  	}
+
+  } 
+
+}
+

@@ -1,0 +1,457 @@
+<div id="scope" class="container admin-background">
+
+    <!-- Main Content -->
+    <div id="content-container">
+
+    	<div class="row ">
+
+    		<!-- start ADMIN view -->
+	    	<div class="hidden-xs col-md-4 navigationWrapper">
+
+				<button type="button" class="btn btn-primary btn-lg flaticon-arrows active">Home</button>
+				<button type="button" class="btn btn-primary btn-lg flaticon-arrows-1" ng-click="toggleModal('about')">About</button>
+				<button type="button" class="btn btn-primary btn-lg flaticon-circle" ng-click="toggleModal('setup')">Set Up</button>
+				<button type="button" class="btn btn-primary btn-lg flaticon-arrows-2 lastButton" ng-click="toggleModal('log')">Log</button>
+
+				<div class="alertBorder" ng-class="{'thin':!isSmall, 'fat':isSmall, 'important':importantAlerts, 'not-important':!importantAlerts}" ng-click="isSmall = !isSmall">
+
+					<div class="btn alerts_title btn-lg flaticon-music" ng-class="{'small_alert_title':!isSmall, 'big_alert_title':isSmall, 'flaticon-music':!importantAlerts, 'flaticon-interface':importantAlerts}">Alert
+
+						<div class="alert_cnt" ng-if="alertEvents.length > 0">{{alertEvents.length}}</div>
+
+					</div>
+
+					<div class="alerts_container" ng-class="{'small_alert':!isSmall, 'big_alert':isSmall}" >
+
+						<div class="alertBox" ng-repeat="alertEvent in alertEvents | limitTo:3" data-key="{{$index}}" remove-on-click>
+
+							<div class="alert_icon">
+									    				
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									 viewBox="0 0 18 18" style="enable-background:new 0 0 18 18;" xml:space="preserve">
+								<style type="text/css">
+									.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#00ADEE;}
+									.st1{fill:#00ADEE;}
+									.st2{fill:#FC4C02;}
+									.st3{fill:none;stroke:#FC4C02;stroke-width:0.4727;stroke-miterlimit:10;}
+									.st4{fill:none;stroke:#FC4C02;stroke-width:0.4675;stroke-miterlimit:10;}
+									.st5{fill:none;stroke:#FC4C02;stroke-width:0.4473;stroke-miterlimit:10;}
+									.st6{fill:#FFFFFF;}
+								</style>
+								<g>
+									<path class="st6" d="M5.3,2.4c1.2-0.7,2.4-1,3.8-1s2.7,0.3,3.8,1S15,4,15.7,5.2c0.7,1.2,1,2.4,1,3.8s-0.3,2.7-1,3.8
+										c-0.7,1.2-1.6,2.1-2.8,2.8s-2.4,1-3.8,1s-2.7-0.3-3.8-1S3.2,14,2.5,12.8c-0.7-1.2-1-2.4-1-3.8s0.3-2.7,1-3.8S4.1,3.1,5.3,2.4z
+										 M10.4,10.3l0.2-6.2c0-0.1,0-0.1-0.1-0.2c-0.1-0.1-0.1-0.1-0.2-0.1H8c-0.1,0-0.2,0-0.2,0.1C7.7,4,7.7,4.1,7.7,4.2l0.2,6.2
+										c0,0.1,0,0.1,0.1,0.2c0.1,0,0.1,0.1,0.2,0.1H10c0.1,0,0.2,0,0.2-0.1C10.3,10.5,10.4,10.4,10.4,10.3z M10.4,13.8v-1.9
+										c0-0.1,0-0.2-0.1-0.2s-0.1-0.1-0.2-0.1H8.2c-0.1,0-0.2,0-0.2,0.1s-0.1,0.1-0.1,0.2v1.9c0,0.1,0,0.2,0.1,0.2C8,14,8.1,14.1,8.2,14.1
+										h1.9c0.1,0,0.2,0,0.2-0.1C10.3,13.9,10.4,13.8,10.4,13.8z"/>
+								</g>
+								</svg>
+
+							</div>
+							<div class="alert_msg">
+								{{alertEvent.EventType === "dispense" ? configData.messages['coil'].title : configData.messages[alertEvent.EventDescription].title}}<br>
+								{{alertEvent.EventType === "dispense" ? configData.messages['coil'].message+' ('+alertEvent.EventDescription+')' : configData.messages[alertEvent.EventDescription].message}}<br>
+								<span>{{(alertEvent.timestamp) | date:'MMM d, yyyy @ h:mm a'}}</span>
+							</div>
+							<br class="clear">
+
+						</div>
+
+					</div>
+
+				</div>
+
+    		</div>
+
+    		<div class="hidden-xs col-md-8">
+
+    			<div class="mainWrapper">
+
+	    			<div class="cloudIcon"></div>
+
+					<div class="inventoryWrapper">
+						
+						<div class="header"><span ng-click="toggleModal('inventory')">Inventory</span></div>
+						<div class="graphContainer" ng-repeat=
+						"productData in productData" ng-if="productData.Available > 0">
+							
+							<div class="title">{{productData.Products}}</div>
+							<div class="stock">
+								<div ng-if="(productData.Available/configData.prodPerTray) <= .33" class="low" style="width:{{productData.Available | toPercentage}}"></div>
+								<div ng-if="(productData.Available/configData.prodPerTray) > .33 && (productData.Available/configData.prodPerTray) < .66" class="med" style="width:{{productData.Available | toPercentage}}"></div>
+								<div ng-if="(productData.Available/configData.prodPerTray) >= .66" class="high" style="width:{{productData.Available | toPercentage}}"></div>
+
+							</div>
+							<br class="clear">
+
+						</div>
+
+					</div>
+
+					<div class="coilWrapper">
+						
+						<div class="header">Coil Status</div>
+							
+						<div class="status">
+
+			    			<div class="checkIcon" ng-if="configData.coilError === false">
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									 viewBox="0 0 18 18" style="enable-background:new 0 0 18 18;" xml:space="preserve">
+								<style type="text/css">
+									.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#00ADEE;}
+									.st1{fill:#00ADEE;}
+									.st2{fill:#FC4C02;}
+									.st3{fill:none;stroke:#FC4C02;stroke-width:0.4727;stroke-miterlimit:10;}
+									.st4{fill:none;stroke:#FC4C02;stroke-width:0.4675;stroke-miterlimit:10;}
+									.st5{fill:none;stroke:#FC4C02;stroke-width:0.4473;stroke-miterlimit:10;}
+									.st6{fill:#FFFFFF;}
+								</style>
+								<path class="st6" d="M12.7,8l-3.8,3.5c-0.1,0.1-0.2,0.1-0.3,0.2c-0.1,0-0.2,0.1-0.3,0.1c-0.2,0-0.4-0.1-0.5-0.2L5.3,9.3
+									C5,9,5,8.5,5.3,8.2c0.3-0.3,0.8-0.3,1.1,0L8.2,10l3.4-3.1C12,6.6,12.4,6.6,12.7,7C13,7.3,13,7.8,12.7,8z M9,1.6
+									C4.8,1.6,1.5,5,1.5,9.1s3.4,7.5,7.5,7.5s7.5-3.4,7.5-7.5S13.2,1.6,9,1.6z"/>
+								</svg>
+			    			</div>
+
+							<div class="alertIcon" ng-if="configData.coilError === true">
+									    				
+								<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+									 viewBox="0 0 18 18" style="enable-background:new 0 0 18 18;" xml:space="preserve">
+								<style type="text/css">
+									.st0{fill-rule:evenodd;clip-rule:evenodd;fill:#00ADEE;}
+									.st1{fill:#00ADEE;}
+									.st2{fill:#FC4C02;}
+									.st3{fill:none;stroke:#FC4C02;stroke-width:0.4727;stroke-miterlimit:10;}
+									.st4{fill:none;stroke:#FC4C02;stroke-width:0.4675;stroke-miterlimit:10;}
+									.st5{fill:none;stroke:#FC4C02;stroke-width:0.4473;stroke-miterlimit:10;}
+									.st6{fill:#FFFFFF;}
+								</style>
+								<g>
+									<path class="st6" d="M5.3,2.4c1.2-0.7,2.4-1,3.8-1s2.7,0.3,3.8,1S15,4,15.7,5.2c0.7,1.2,1,2.4,1,3.8s-0.3,2.7-1,3.8
+										c-0.7,1.2-1.6,2.1-2.8,2.8s-2.4,1-3.8,1s-2.7-0.3-3.8-1S3.2,14,2.5,12.8c-0.7-1.2-1-2.4-1-3.8s0.3-2.7,1-3.8S4.1,3.1,5.3,2.4z
+										 M10.4,10.3l0.2-6.2c0-0.1,0-0.1-0.1-0.2c-0.1-0.1-0.1-0.1-0.2-0.1H8c-0.1,0-0.2,0-0.2,0.1C7.7,4,7.7,4.1,7.7,4.2l0.2,6.2
+										c0,0.1,0,0.1,0.1,0.2c0.1,0,0.1,0.1,0.2,0.1H10c0.1,0,0.2,0,0.2-0.1C10.3,10.5,10.4,10.4,10.4,10.3z M10.4,13.8v-1.9
+										c0-0.1,0-0.2-0.1-0.2s-0.1-0.1-0.2-0.1H8.2c-0.1,0-0.2,0-0.2,0.1s-0.1,0.1-0.1,0.2v1.9c0,0.1,0,0.2,0.1,0.2C8,14,8.1,14.1,8.2,14.1
+										h1.9c0.1,0,0.2,0,0.2-0.1C10.3,13.9,10.4,13.8,10.4,13.8z"/>
+								</g>
+								</svg>
+
+							</div>
+
+							<span class="title">{{configData.coilError === false ? "All motors functioning" : "Coil Error"}}</span>
+
+						</div>
+						<br class="clear">
+
+					</div>
+
+					<div class="unitWrapper">
+						<div id="machine_status" ng-bind-html="machine_status"></div>
+					</div>
+
+					<div class="temperatureWrapper">
+
+					    <div class="sensor tempsensor" id="t1sensor">
+					        <div class="tempheader">Temperature (<span class="fartemp">&#176;F</span>/<span class="celtemp selected">&#176;C</span>)</div>
+					        <div class="tempgauge radialThreshold">
+
+					          <div id="main">
+					              <div class="thresholdArcMax" id="t1_temp_thresholdMax" class="selectedRadial noselect"></div>
+					              <div class="currentArc" id="t1_temp_current" class="selectedRadial noselect"></div>
+					          </div>
+					        </div>
+						</div>
+
+					</div>
+
+				</div>
+
+    		</div>
+
+    		<!-- end ADMIN view -->
+
+    	</div>
+
+    </div><!-- End Main Content -->
+
+</div>
+
+<modal id='showInventoryModal' visible='showInventoryModal' title="Inventory">
+
+	<div class="container">
+	
+		<div class="heading product">Product</div>
+		<div class="heading quantity">Quantity</div>
+		<div class="heading tray">Tray</div>
+		<div class="heading price">Price</div>
+		<br class="clear">
+
+		<hr class="inventory"/>
+
+		<div class="inventory" ng-repeat="productData in productData">
+
+			<div class="product product">{{productData.Products}}</div>
+			<div class="product quantity">
+
+				<div class="count">{{("0"+productData.Available).slice(-2)}}</div>
+				<div class="graph">
+					
+					<div ng-if="(productData.Available/configData.prodPerTray) <= .33" class="low" style="width:{{productData.Available | toPercentage}}"></div>
+					<div ng-if="(productData.Available/configData.prodPerTray) > .33 && (productData.Available/configData.prodPerTray) < .66" class="med" style="width:{{productData.Available | toPercentage}}"></div>
+					<div ng-if="(productData.Available/configData.prodPerTray) >= .66" class="high" style="width:{{productData.Available | toPercentage}}"></div>
+
+				</div>
+				<br class="clear">
+
+			</div>
+			<div class="product tray">{{productData.Tray}}</div>
+			<div class="product price">${{productData.Price * 0.01 | number:2}}</div>
+			<br class="clear">
+
+		</div>
+
+	</div>
+
+</modal>
+
+<modal id='showAboutModal' visible='showAboutModal' title="About this Demo">
+
+	<div class="container">
+	
+		<div class="message"><p>To demonstrate a rapid path-to-product IoT solution for retail using cloud data analytics, a proof of concept was created using the Intel® IoT Developer Kit and Grove* IoT Commercial Developer Kit that was scaled to an industrial solution using an Intel® IoT Gateway, industrial sensors, Intel® IoT Gateway Software Suite, Intel® System Studio IoT Edition, and Microsoft* Azure* cloud services. This solution monitors the inventory, product sales, and maintenance of a vending machine. The gateway gathers data from temperature sensors, stepper motors, a coil switch, and a product-purchasing application for edge data analytics.</p></div>
+
+	</div>
+
+</modal>
+
+<modal id='showSetupModal' visible='showSetupModal' title="Setup Instructions">
+
+	<div class="container completed-step show">
+		<div class="message"><p>Completed setup view:</p></div>
+		<img class='img-responsive' src='images/Full_VM_Component.jpg'>
+	</div>
+
+	<div class="container all-parts hidden">
+
+		<div class="message">
+			<p>The following parts are required for this use case. Mouse over each part to get more information or see what the finished setup looks like. </p>
+	      	<p>Close to go to the use case.</p>
+	    </div>
+
+		<div class="row row-centered">
+
+			<div class="parts-hover sensor col-centered" id="item_temperature" data-toggle="popover" data-trigger="hover focus" title="Temperature Sensor" data-container="body" data-content="<p>It can detect the change in temperature.</p><img class='img-responsive' src='images/12C_Temperature_Sensor.jpg'><br/><p><strong>Instructions:</strong></p><p>Plugs into 12C of Arduino Shield.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Temperature_Sensor.png">Temperature Sensor</div>
+
+			<div class="parts-hover sensor col-centered" id="item_touch" data-toggle="popover" data-trigger="hover focus" title="Touch Sensor" data-container="body" data-content="<p>It can detect the change in capacitance when a finger is near it.</p><img class='img-responsive' src='images/D8_sensor.jpg'><br/><p><strong>Instructions:</strong></p><p>Plugs into D8 of Arduino Shield.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Touch.png">Touch Sensor</div>
+
+			<div class="parts-hover sensor col-centered" id="item_button" data-toggle="popover" data-trigger="hover focus" title="Grove Button" data-container="body" data-content="<p>One independent button, configured with pull-down resistor.</p><img class='img-responsive' src='images/D2_button.jpg'><br/><p><strong>Instructions:</strong></p><p>Plugs in to <strong>D2</strong> connector of Arduino Sheild.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Button.png">Button</div>
+
+			<div class="parts-hover sensor col-centered" id="item_led" data-toggle="popover" data-trigger="hover focus" title="LED Socket Kit (Red LED)" data-container="body" data-content="<p>Will illuminate an LED when the output is high</p><img class='img-responsive' src='images/D3_RedLED.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug into D3 connector of Arduino Shield</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Red_LED.png">LED Socket Kit (Red LED)</div>
+
+			<div class="parts-hover sensor col-centered" id="item_led2" data-toggle="popover" data-trigger="hover focus" title="LED Socket Kit (Green LED)" data-container="body" data-content="<p>Will illuminate an LED when the output is high</p><img class='img-responsive' src='images/D4_GreenLED.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug into D4 connector of Arduino Shield</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/LED-Green.png">LED Socket Kit (Green LED)</div>
+
+		</div>
+
+		<div class="row row-centered">
+
+			<div class="parts-hover stepper col-centered" id="item_stepper" data-toggle="popover" data-trigger="hover focus" title="Stepper Motor" data-container="body" data-content="<p>Will rotate clockwise or counterclockwise</p><img class='img-responsive' src='images/Motor.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug wires into the following order on the Arduino Shield pinouts: GND > GND, VCC > 5V, IN1 > 8, IN2 > 9, IN3 > 10, IN4 > 11</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Motor.png">Stepper Motor</div>
+
+			<div class="parts-hover stepper col-centered" id="item_stepper" data-toggle="popover" data-trigger="hover focus" title="Stepper Driver" data-container="body" data-content="<p>Will rotate clockwise or counterclockwise</p><img class='img-responsive' src='images/Motor.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug wires into the following order on the Arduino Shield pinouts: GND > GND, VCC > 5V, IN1 > 8, IN2 > 9, IN3 > 10, IN4 > 11</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Stepper.png">Stepper Driver</div>
+
+			<div class="parts-hover sheild-lcd col-centered" id="item_lcd" data-toggle="popover" data-trigger="hover focus" title="LCD RGB Backlight Module" data-container="body" data-content="<p>This display enables you to set the color to whatever you like. Also support user defined characters.</p><img class='img-responsive' src='images/12C_backlight.jpg'><br/><p><strong>Instructions:</strong></p><p>Plug into <strong>I2C</strong> in Arduino Shield.</p>" data-placement="bottom" data-html="true"><img class="img-responsive" src="images/Screen.png">LCD RGB Backlight Module</div>
+
+		</div>
+
+		<div class="row row-centered">
+
+			<div class="col-xs-6 col-centered">
+
+				<div class="row row-centered">
+
+						<div class="parts-hover nuc col-centered" id="item_nuc" data-toggle="popover" data-trigger="hover focus" title="NUC" data-container="body" data-content="<p>As an expansion board, Base Shield v2 has many Grove connectors, making it convenient for you to use Grove products together. And it is compatible with a series of Arduino products.</p><p><strong>Instructions:</strong></p><img class='img-responsive' src='images/NUC_large_144.jpg'><br/><p>Plug the Arduino Shield into the <strong>Galileo Gen 2 pinouts</strong>.</p>" data-placement="right" data-html="true"><img class="img-responsive" src="images/NUC_trans.png">NUC</div>				
+
+				</div>
+
+			</div>
+
+			<div class="col-xs-6 col-centered">
+
+				<div class="row row-centered">
+
+					<div class="parts-hover sheild-lcd col-centered" id="item_arduino" data-toggle="popover" data-trigger="hover focus" title="Arduino Shield" data-container="body" data-content="<p>As an expansion board, Base Shield v2 has many Grove connectors, making it convenient for you to use Grove products together. And it is compatible with a series of Arduino products.</p><p><strong>Instructions:</strong></p><img class='img-responsive' src='images/BaseSheild_pop.jpg'><br/><p>Plug the Arduino Shield into the <strong>Galileo Gen 2 pinouts</strong>.</p>" data-placement="left" data-html="true"><img class="img-responsive" src="images/Sheild_cables.png">Arduino Shield</div>
+
+				</div>
+
+				<div class="row row-centered">
+
+					<div class="parts-hover arduino col-centered" id="item_101" data-toggle="popover" data-trigger="hover focus" title="Arduino 101" data-container="body" data-content="<p>Intel Galileo Gen development board, the first in a family of Arduino certified development boards base on Intel architecture.<img class='img-responsive' src='images/Arduino_341x213.jpg'><br/></p>" data-placement="left" data-html="true"><img class="img-responsive" src="images/arduino_101.png">Arduino 101</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" id="help_next">View All Parts</button>
+	</div>
+
+	<script type="text/javascript">
+		
+	$(document).ready(function(){
+
+        $(function () {
+            $('[data-toggle="popover"]').popover();
+        })
+
+	    // Help Modal
+	    $('#help_next').click( function () {
+
+	        $('.completed-step').toggleClass('hidden');
+	        $('.completed-step').toggleClass('show');
+
+	        $('.all-parts').toggleClass('show');
+	        $('.all-parts').toggleClass('hidden');
+
+	        if($(this).text()=='View All Parts') {
+	          $(this).text('View Finished Setup');
+	        } else {
+	          $(this).text('View All Parts');
+	        }
+
+	    });
+
+	});
+	</script>
+
+</modal>
+
+<modal id="showActivityLog" visible='showActivityLog' title="View Log">
+
+	<div class="activity-log container">
+		
+		<div class="row title">Dispense</div>
+
+		<div class="activity-container dispense">
+
+			<div class="row" ng-repeat="productData in productData">
+				
+				<div class="col-xs-2 event-title">{{productData.Products}}</div>
+				<div class="col-xs-10 events-table">
+												
+					<div ng-repeat="event in logEvents.dispense" ng-if="event.EventDescription === productData.Tray" class="event dispense" style="left:{{event.percentOfDay | number:2}}%;"></div>
+
+				</div>
+
+			</div>
+
+		</div>
+		
+		<div class="activity-container door-status">
+
+			<div class="row">
+				
+				<div class="col-xs-2 event-title">Door Status</div>
+				<div class="col-xs-10 events-table">
+												
+					<div ng-repeat="event in logEvents.door" class="event alert2" style="left:{{event.percentOfDay | number:2}}%;"></div>
+
+				</div>
+
+			</div>
+
+		</div>
+		
+		<div class="row title">Coil Function</div>
+
+		<div class="activity-container coil">
+
+			<div class="row" ng-repeat="productData in productData">
+				
+				<div class="col-xs-2 event-title">{{productData.Products}}</div>
+				<div class="col-xs-10 events-table">
+												
+					<div ng-repeat="event in logEvents.coil" ng-if="event.EventDescription === productData.Tray" class="event alert2" style="left:{{event.percentOfDay | number:2}}%;"></div>
+
+				</div>
+
+			</div>
+
+		</div>
+		
+		<div class="activity-container door-status">
+
+			<div class="row">
+				
+				<div class="col-xs-2 event-title">Temperature</div>
+				<div class="col-xs-10 events-table">
+												
+					<div ng-repeat="event in logEvents.temperature" class="event alert2" style="left:{{event.percentOfDay | number:2}}%;"></div>
+
+				</div>
+
+			</div>
+
+		</div>
+		
+		<div class="activity-container timeline">
+
+			<div class="row">
+				
+				<div class="col-xs-2 event-title">24 Hour Log</div>
+				<div class="col-xs-10 events-table"></div>
+
+			</div>
+
+			<div class="row">
+				
+				<div class="col-xs-2 event-title event-times"></div>
+				<div class="col-xs-10">
+					
+					<div class="row times">
+						
+						<div class="col-xs-2 times">12AM</div>
+						<div class="col-xs-2 times">4AM</div>
+						<div class="col-xs-2 times">8AM</div>
+						<div class="col-xs-2 times">12PM</div>
+						<div class="col-xs-2 times">4PM</div>
+						<div class="col-xs-2 times">
+
+							<div class="row">
+
+								<div class="col-xs-6 times">8PM</div>
+								<div class="col-xs-6 times right">12AM</div>
+
+							</div>
+
+						</div>
+
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="modal-footer">
+		<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	</div>
+
+</modal>
+
+<div class="init-events" style="text-align:center;">
+	<br>
+	<button class="btn btn-primary" ng-click="eventUpdate('high-temp');">High Temp</button>
+	<button class="btn btn-primary" ng-click="eventUpdate('low-temp');">Low Temp</button>
+	<button class="btn btn-primary" ng-click="eventUpdate('normal-temp');">Normal Temp</button>
+	<button class="btn btn-primary" ng-click="eventUpdate('door-open');">Open Door</button>
+	<button class="btn btn-primary" ng-click="eventUpdate('door-closed');">Close Door</button>
+	<button class="btn btn-primary" ng-click="eventUpdate('dispense-error');">Dispense Error</button>
+	<br>
+</div>
+<!--pre>{{data | json}}</pre>-->

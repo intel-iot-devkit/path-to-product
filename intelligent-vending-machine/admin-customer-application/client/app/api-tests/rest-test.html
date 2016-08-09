@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title></title>
+
+  </head>
+
+  <body>
+
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
+
+    <script>
+
+      var urlPath = 'https://iotvendingmachine.table.core.windows.net/Inventory()?$filter=(Available%20ge%201)&$select=RowKey,Available,Price,Products';
+
+      var accountName = 'Insert your Azure account here';
+
+      var secretKey = '+bL2CajfZIi0K/DGql0ZGf9vbNWCvkKhVU2l8QlhH9Oprr283DCmrnwUG5MbsRFaBmDk9Q5AwbzkXckOe4KOkQ==';
+
+      var CanonicalizedResource = '/iotvendingmachine/Inventory()';
+
+      var VERB = 'GET';
+
+      var utctime = (new Date()).toUTCString();
+
+      //console.log('utctime : ',utctime);
+
+      var contentType = 'Content-Type: application/json';
+
+      //only required for PUT and POST
+      //var contentMD5 = 'Content-MD5: ' . base64_encode(md5($body, true));
+
+      var StringToSign = 
+                VERB + "\n" + 
+                //contentMD5 + "\n" + 
+                contentType + "\n" +
+                utctime + "\n" +
+                CanonicalizedResource;
+
+      //console.log('StringToSign : ',StringToSign);
+
+      var signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(StringToSign), 
+        CryptoJS.enc.Base64.parse(secretKey)));
+
+      //console.log('signature : ',signature);
+
+      $.ajax({
+			  xhrFields: {
+			    //withCredentials: true
+			  },
+			  url: urlPath,
+              type: 'GET',
+              success: function (data) {
+                  //console.log(data);
+              },
+              beforeSend: function (xhr) {
+                  xhr.setRequestHeader('Authorization', "SharedKey " + accountName + ":" + signature);
+                  xhr.setRequestHeader('x-ms-date', utctime);
+                  //xhr.setRequestHeader('x-ms-version', '2015-03-11');
+                  //xhr.setRequestHeader('Accept', 'application/json;odata=nometadata');
+                  //xhr.setRequestHeader('DataServiceVersion', '3.0;NetFx');
+                  //xhr.setRequestHeader('MaxDataServiceVersion', '3.0;NetFx');
+              },
+              error: function (rcvData) {
+                  //console.log(rcvData);
+              }
+          });
+
+
+    </script>
+ 
+ Look at the Console!       
+</body>
+</html>

@@ -1,0 +1,700 @@
+@import "variables.scss";
+
+@mixin rounded($radius: 0.5em) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+// bower:scss
+@import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+// endbower
+
+/* Bootstrap Overrides
+================================= */
+
+.row-no-padding {
+  [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+  }
+}
+
+/*   .clear prevents divs from flaoting out side a container div.   */
+.clear{
+	height:0;
+	font-size:0;
+	line-height:0;
+	clear:both;
+}
+
+/* Typography
+================================= */
+
+@font-face {
+    font-family: "IntelClear_BdIt";
+    src: url("../fonts/IntelClear_BdIt.ttf") format("truetype");   
+}
+
+@font-face {
+    font-family: "IntelClear_It";
+    src: url("../fonts/IntelClear_It.ttf") format("truetype");   
+}
+
+@font-face {
+    font-family: "IntelClear_Lt";
+    src: url("../fonts/IntelClear_Lt.ttf") format("truetype");   
+}
+
+@font-face {
+    font-family: "IntelClear_LtIt";
+    src: url("../fonts/IntelClear_LtIt.ttf") format("truetype");   
+}
+
+@font-face {
+    font-family: "IntelClear_Bd";
+    src: url("../fonts/IntelClear_Bd.ttf") format("truetype");   
+}
+
+@font-face {
+    font-family: "IntelClear_Rg";
+    src: url("../fonts/IntelClear_Rg.ttf") format("truetype");   
+}
+
+@font-face {
+  font-family: "Flaticon";
+  src: url("../fonts/flaticon.eot");
+  src: url("../fonts/flaticon.eot#iefix") format("embedded-opentype"),
+  url("../fonts/flaticon.woff") format("woff"),
+  url("../fonts/flaticon.ttf") format("truetype"),
+  url("../fonts/flaticon.svg") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) {
+  @font-face {
+    font-family: "Flaticon";
+    src: url("./Flaticon.svg#Flaticon") format("svg");
+  }
+}
+[class^="flaticon-"]:before, [class*=" flaticon-"]:before,
+[class^="flaticon-"]:after, [class*=" flaticon-"]:after {   
+  font-family: Flaticon;
+  font-style: normal;
+  padding-right:20px;
+  padding-left:22px;
+  font-size: 21px;
+}
+
+.flaticon-arrows:before { content: "\f100"; }
+.flaticon-arrows-1:before { content: "\f101"; }
+.flaticon-arrows-2:before { content: "\f102"; }
+.flaticon-circle:before { content: "\f103"; }
+.flaticon-circle-1:before { content: "\f104"; }
+.flaticon-interface:before { content: "\f105"; }
+.flaticon-music:before { content: "\f106"; }
+
+/* Layout
+================================= */
+
+body {
+  padding: 0;
+  background-color:$intel-dark-blue;
+}
+
+.body-container {
+  padding:0;
+  max-width: 1280px;
+  margin:0 auto;
+  height:100%;
+}
+
+.container.admin-background {
+
+	display: none;
+	background-size: 100%;
+	width: 432px;
+
+	#content-container {
+		width:100%;
+
+	}
+
+}
+
+#overlay {
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #000;
+    background: rgba(0,0,0,0.6);
+    z-index:100;
+
+	#confirmWrapper {
+	    width: 270px;
+	    height: 135px;
+	    position: absolute;
+	    top: 30%;
+	    left: 18%;
+	    text-align:center;
+		font-size:20px;
+		color:$intel-blue;
+
+		.confirmText {
+		    width: 270px;
+		    height: 90px;
+		    line-height: 90px;
+		    margin-bottom:2px;
+			font-family: 'IntelClear_Bd';
+			background-color:$intel-white;
+			border-top-left-radius:5px;
+			border-top-right-radius:5px;
+		}
+
+		.confirmCancel, .confirmYes {
+		    height: 45px;
+		    line-height: 45px;
+		    float:left;
+			font-family: 'IntelClear_Lt';
+			background-color:$intel-white;
+		    width: 134px;
+		    cursor: pointer;
+		}
+
+		.confirmCancel {
+		    margin-right:2px;
+			border-bottom-left-radius:5px;
+		}
+
+		.confirmYes {
+			border-bottom-right-radius:5px;
+		}
+
+		.confirmCancel:hover, .confirmYes:hover {
+			color:$intel-dark-blue;
+			font-family: 'IntelClear_Bd';
+		}
+
+	}
+
+}
+
+.confirmText {
+    width: 270px;
+    height: 90px;
+    margin-bottom:2px;
+}
+
+.container.mobile-background {
+
+	display: block;
+	max-width: 432px;
+	margin:0 auto;
+	padding:0;
+	position:relative;
+
+	#anime-container {
+	    position: absolute;
+	    z-index: 10;
+	    background-color:$intel-dark-blue;	
+	    width:432px;
+	    height: 100%;
+
+	    #sale_message {
+	    	padding-top:160px;
+			  color: $intel-white;
+		    font-family: 'IntelClear_Lt';
+		    font-size: 35px;
+		    width: 250px;
+		    margin-left: 1px;
+		    text-align: center;
+		    margin: 0 auto;
+	    }	
+
+		#sale_anime {
+			width: 432px;
+		}
+
+	}
+
+	#cart-container {
+		text-align: center;
+
+		.thankYou {
+		    width: 100%;
+		    text-align: center;
+		    font-size: 20px;
+		    color: $intel-white;
+		    margin-bottom: 40px;			
+		}
+
+		.tableWrapper {
+		    -moz-border-radius: 5px;
+		    -webkit-border-radius: 5px;
+		   	border-radius: 5px;
+			width:80%;
+			margin: 0 auto 60px auto;
+			font-size:20px;
+			overflow: hidden;
+
+			.table-row div{
+				float:left;
+				background-color: $intel-white;
+				height:65px;
+				line-height: 65px;
+				color: $intel-dark-blue;
+				border-bottom:2px solid $intel-dark-blue;
+				border-right:2px solid $intel-dark-blue;
+			}
+
+			.table-row div:last-of-type{
+				border-right:0;
+			}
+
+			.qty {
+				width:15%;
+			}
+
+			.product {
+				width:45%;
+			}
+
+			.price {
+				width:25%;
+			}
+
+			.status {
+				width:15%;
+				line-height: 60px;
+
+				img {
+					width: 30px;
+				}
+			}
+
+			.table-total{
+				background-color: $intel-white;
+				height:65px;
+				line-height: 65px;
+				color: $intel-blue;
+			}
+
+		}
+
+		.btn {
+			background-color:$intel-blue;
+			color:$intel-white;
+		    -moz-border-radius: 5px;
+		    -webkit-border-radius: 5px;
+		   	border-radius: 5px;
+			height:60px;
+			line-height: 60px;
+			width:50%;
+		}
+
+
+	}
+
+	#content-container, #cart-container {
+		font-family: 'IntelClear_Rg';
+
+		img.topBar {
+			width:430px;
+			height:30px;
+		}
+
+		.topWrapper {
+			color:$intel-white;
+			margin-bottom: 63px;
+
+			.header{
+				margin-bottom:34px;
+				background-color: #2271b8;
+				font-family: 'IntelClear_Lt';
+				font-size:13px;
+				height:48px;
+				line-height:48px;
+				font-size: 16px;
+
+		  		.intelLogo {
+					width: 35px;
+				    height: 15px;
+				    color: $intel-white;
+				    margin: 8px 13px 0 17px;
+				    float: left;				    
+		  		}
+
+				.intelLogo path {
+				  fill: currentColor;
+				}
+
+				span {
+				    display: inline-block;
+				}
+
+			}
+
+			.readyStatus {
+				font-family: 'IntelClear_Bd';
+				font-size:16px;
+
+		  		.vendingMachineIcon {
+				    color: $intel-white;
+				    float: left;
+				    width: 25px;
+				    margin: 0px 7px 0 78px;
+
+		  		}
+
+				.vendingMachineIcon path {
+				  fill: currentColor;
+				}
+
+				.ready {
+					width:250px;
+					height:40px;
+					line-height:40px;
+					background-color:$intel-button-border;
+				   	-moz-box-shadow: 4px 4px 5px rgba(255,255,255,0.2);
+				    -webkit-box-shadow: 4px 4px 5px rgba(255,255,255,0.2);
+				    box-shadow: 4px 4px 5px rgba(0,0,0,0.2);
+				    @include rounded($radius: 1.25px);
+				    display: inline-block;
+				    text-align: left;
+
+			  		.checkIcon, .alert_icon {
+					    color: $intel-white;
+					    float: left;
+						width: 25px;
+					    margin: 8px 10px 0 12px;
+
+			  		}
+
+					.checkIcon path {
+					  fill: currentColor;
+					}
+
+					span {
+						display:inline-block;
+						margin-top: 2px;
+					}
+
+					span.alert_error {
+						color:$intel-red;
+					}
+
+					.alert_icon path {
+					  fill: #fc4c02;
+					}
+
+				}
+
+			}
+
+			.orderDetails {
+				font-family: 'IntelClear_Bd';
+				font-size: 16px;
+				margin-top: 20px;
+
+		  		.basketIcon {
+				    color: $intel-white;
+				    float: left;
+					width: 19px;
+				    margin: 0 10px 0 40px;
+
+		  		}
+
+				.backetIcon path {
+				  fill: currentColor;
+				}
+
+				span {
+					display:inline-block;
+
+				}
+
+			}
+
+			.selectedItem {
+				position:relative;
+				width: 354px;
+			    margin: 0 auto;
+
+			    .product-rows {
+			    	margin-bottom: 2px;
+			    	position:relative;
+			    }
+
+				.selectItemBelow {
+				    margin-top: 58px;
+				    text-align: center;
+				    font-size: 21px;				
+				}
+
+				.selectedQty, .selectedProduct, .selectedPrice {
+					height:54px;
+					line-height:54px;
+					text-align:center;
+					float:left;
+					font-size:20px;
+					color:$intel-dark-blue;
+					background-color:$intel-white;
+
+				}
+
+				.selectedRemove {
+					position:absolute;
+				    top: -10px;
+				    left: 340px;
+					z-index:5;
+					width:21px;
+					cursor: pointer;
+				}
+
+				.selectedRemove:hover {
+					width:29px;
+					top:-15px;
+					left:335px;
+				}
+
+				.selectedQty {
+					width:67px;
+				}
+
+				.selectedProduct {
+					width:175px;
+					margin:0 1px;
+				}
+
+				.selectedPrice {
+					width:107px;
+				}
+
+
+			}
+
+			.buyNow {
+				background-color:$intel-blue;
+			    width: 351px;
+				color:$intel-white;
+				height:54px;
+				line-height:54px;
+				text-align:center;
+				font-size:20px;
+				cursor: pointer;
+			}
+
+			.buyNow:hover {
+				color: $intel-dark-blue;
+
+			}
+
+		}
+
+		.productsWrapper {
+			padding: 12px 36px 20px 36px;
+			color:$intel-light-blue;
+		    margin: 0 auto;
+		    text-align: center;
+		    background-color:$intel-white;
+
+			.tapDirections{
+				margin-bottom:13px;
+			    font-size: 18px;
+			}
+
+			.selectItemBelow {
+				text-align:center;
+
+			}
+
+			.orderDetails {
+
+
+			}
+
+			.productHeader {
+				font-size:15px;
+				margin-bottom: 4px;
+
+				div {
+					float:left;
+				}
+
+				.instock{
+					width: 63px;
+				}
+
+				.product {
+					width: 200px;
+				}
+
+				.price {
+					width: 74px;
+				    padding-right: 2px;
+				    text-align: right;
+
+				}
+
+			}
+
+
+			.productList {
+				font-size:20px;
+				margin-bottom: 19px;
+
+				div {
+					height: 52px;
+					line-height:52px;
+					text-align:center;
+				    @include rounded($radius: 1.25px);
+
+				}
+
+				.instock{
+					width: 52px;
+					border:1px solid $intel-button-border;
+					float:left;
+
+				}
+
+				.name {
+					width:215px;
+					background-color:$intel-blue;
+					float:left;
+					margin: 0 5px;
+					cursor: pointer;
+					color:$intel-white;
+
+				}
+
+				.name:hover {
+					color: $intel-dark-blue;
+
+				}
+
+				.price {
+					width:80px;
+					border:1px solid $intel-button-border;
+					float:left;
+
+				}
+
+			}
+
+		}
+
+	}
+
+}
+
+.init-start, .init-events {
+	width:700px; 
+	text-align:center; 
+	margin:0 auto;
+}
+
+/* Navigation
+================================= */
+
+.transformable {
+    -webkit-transition: height 100ms linear;
+    -moz-transition: height 100ms linear;
+    -o-transition: height 100ms linear;
+    -ms-transition: height 100ms linear;
+    transition: height 100ms linear;
+
+}
+
+/* Form
+================================= */
+
+
+/* Buttons
+================================= */
+
+.btn-primary {
+    border: 1px solid $intel-button-border;
+   	-moz-box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+    -webkit-box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+    box-shadow: 3px 3px 2px rgba(0,0,0,0.2);
+    background-color: $intel-white;
+}
+
+.btn-primary,
+.alerts_title {
+    color:$intel-light-blue;
+    -moz-border-radius: 0;
+    -webkit-border-radius: 0;
+   	border-radius: 0;
+   	font-family: 'IntelClear_Lt';
+}
+
+.btn-primary:active:hover, 
+.btn-primary:active:focus, 
+.btn-primary:active.focus, 
+.btn-primary.active:hover, 
+.btn-primary.active:focus, 
+.btn-primary.active.focus,
+.btn-primary:hover, 
+.btn-primary.active, 
+.btn-primary.alerts_title,
+.btn:hover, .btn:focus {
+    color:$intel-white;
+	background-color:$intel-blue;
+	border-color: $intel-button-border;
+}
+
+.btn.alerts_title:hover {
+	border-color: none !important;	
+}
+
+.btn-lg {
+	padding-top:0;
+} 
+
+
+/* Logos & Icons
+================================= */
+
+.browsehappy {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+ 
+
+/* API Specific
+================================= */
+
+/* Bootstrap Helper Classes
+================================= */
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+}
+
+
+
+/* Media Queries
+================================= */
+
+@import "1024px.scss";
+@import "1280px.scss";
+
+@import "modals.scss";
+
+/* end */

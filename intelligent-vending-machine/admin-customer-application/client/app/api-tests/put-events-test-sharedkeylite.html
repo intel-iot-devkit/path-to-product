@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+
+    <title></title>
+
+  </head>
+
+  <body>
+
+    <script src="https://code.jquery.com/jquery-2.2.1.min.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/rollups/hmac-sha256.js"></script>
+    <script src="http://crypto-js.googlecode.com/svn/tags/3.0.2/build/components/enc-base64-min.js"></script>
+
+    <script>
+
+      var tmpObj = [
+
+      //dispense
+
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "dispense",
+        "Val": 150,
+        "Status": "dispensed", 
+        "EventDescription": "tray1"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "dispense",
+        "Val": 150,
+        "Status": "dispensed", 
+        "EventDescription": "tray3"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "dispense",
+        "Val": 150,
+        "Status": "error", 
+        "EventDescription": "tray2"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "dispense",
+        "Val": 100,
+        "Status": "error", 
+        "EventDescription": "tray2"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "dispense",
+        "Val": 100,
+        "Status": "dispensed", 
+        "EventDescription": "tray2"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "dispense",
+        "Val": 150,
+        "Status": "dispensed", 
+        "EventDescription": "tray1"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "dispense",
+        "Val": 150,
+        "Status": "error", 
+        "EventDescription": "tray1"
+      },
+
+      //temperature
+
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 33,
+        "Status": "error", 
+        "EventDescription": "high"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 35,
+        "Status": "error", 
+        "EventDescription": "high"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 29,
+        "Status": "ok", 
+        "EventDescription": "normal"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 17,
+        "Status": "error", 
+        "EventDescription": "low"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 16,
+        "Status": "error", 
+        "EventDescription": "low"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 20,
+        "Status": "ok", 
+        "EventDescription": "normal"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 35,
+        "Status": "error", 
+        "EventDescription": "high"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 25,
+        "Status": "ok", 
+        "EventDescription": "normal"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 29,
+        "Status": "ok", 
+        "EventDescription": "normal"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 17,
+        "Status": "error", 
+        "EventDescription": "low"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 32,
+        "Status": "error", 
+        "EventDescription": "high"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "temperature",
+        "Val": 10,
+        "Status": "error", 
+        "EventDescription": "low"
+      },
+
+      //failure
+
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "failure",
+        "Val": 0,
+        "Status": "ok", 
+        "EventDescription": "machine_closed"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "failure",
+        "Val": 0,
+        "Status": "error", 
+        "EventDescription": "machine_opened",
+        "Alert": 0
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "failure",
+        "Val": 0,
+        "Status": "ok", 
+        "EventDescription": "machine_closed"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "failure",
+        "Val": 0,
+        "Status": "error", 
+        "EventDescription": "machine_opened"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "failure",
+        "Val": 0,
+        "Status": "ok", 
+        "EventDescription": "machine_closed"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "failure",
+        "Val": 0,
+        "Status": "error", 
+        "EventDescription": "machine_opened",
+        "Alert": 0
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "failure",
+        "Val": 0,
+        "Status": "ok", 
+        "EventDescription": "machine_closed"
+      },
+      {
+        "PartitionKey": "98:4f:ee:05:5d:26",
+        "EventType": "failure",
+        "Val": 0,
+        "Status": "error", 
+        "EventDescription": "machine_opened"
+      }
+      ];
+
+      var x = 1;
+      for (var i = tmpObj.length - 1; i >= 0; i--) {
+
+        console.log('(Math.floor((new Date()).getTime())-86400000)',(Math.floor((new Date()).getTime())-86400000));
+        console.log('(x*3600000)',(x*3600000));
+        console.log('x',x);
+
+        tmpObj[i].RowKey = 'm' + ((Math.floor((new Date()).getTime())-86400000) + (x*3600000));
+        if(x < 23){ x++; }else{ x=0; }
+
+        console.log('tmpObj[i].RowKey',tmpObj[i].RowKey);
+
+        var utctime = (new Date()).toUTCString();
+        var CanonicalizedResource = "/iotvendingmachine/Events(PartitionKey='98:4f:ee:05:5d:26',RowKey='"+tmpObj[i].RowKey+"')";
+        var StringToSign = 
+                  utctime + "\n" +
+                  CanonicalizedResource;
+
+        var secretKey = '+bL2CajfZIi0K/DGql0ZGf9vbNWCvkKhVU2l8QlhH9Oprr283DCmrnwUG5MbsRFaBmDk9Q5AwbzkXckOe4KOkQ==';
+
+        var signature = CryptoJS.enc.Base64.stringify(CryptoJS.HmacSHA256(CryptoJS.enc.Utf8.parse(StringToSign), 
+          CryptoJS.enc.Base64.parse(secretKey)));
+
+        var urlPath = "https://iotvendingmachine.table.core.windows.net/Events(PartitionKey='98:4f:ee:05:5d:26',RowKey='"+tmpObj[i].RowKey+"')";
+        var accountName = 'Insert your Azure account here';
+
+      	$.ajax({
+              url: urlPath,
+              type: 'PUT',
+              data: JSON.stringify(tmpObj[i]),
+              success: function (data) {
+                  console.log("Table entry updated successfully");
+              },
+              beforeSend: function (xhr) { // https://msdn.microsoft.com/en-us/library/azure/dd179427.aspx
+                  xhr.setRequestHeader('Authorization', "SharedKeyLite " + accountName + ":" + signature);
+                  xhr.setRequestHeader('x-ms-date', utctime);
+                  xhr.setRequestHeader('x-ms-version', ' 2013-08-15');
+                  xhr.setRequestHeader('Content-Type', 'application/json');
+                  //xhr.setRequestHeader('If-Match', '*');
+              },
+              error: function (rcvData) {
+                  console.log(rcvData);
+              }
+          });
+
+      }
+
+
+    </script>
+ 
+ Look at the Console!       
+</body>
+</html>
