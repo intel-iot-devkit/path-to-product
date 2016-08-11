@@ -235,8 +235,8 @@ Give the project the name "Transportation Demo" and then click Next.
 
 ![](img/project name.png)
 
-You now need to connect to your Intel® Edison board from your computer to send code to it.
-Choose a name for the connection and enter IP address of the Intel® Edison board in the "Target Name" field. You can also try to Search for it using the "Search Target" button. Click finish when you are done.
+You now need to connect to your Intel® NUC from your computer to send code to it.
+Choose a name for the connection and enter IP address of the Intel® NUC in the "Target Name" field. You can also try to Search for it using the "Search Target" button. Click finish when you are done.
 
 ![](img/Target connection.png)
 
