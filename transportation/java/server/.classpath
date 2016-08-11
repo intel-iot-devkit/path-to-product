@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/tomcat-embed-logging-juli.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/tomcat-embed-jasper.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/tomcat-embed-core.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/commons-cli-1.3.1-javadoc.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/commons-cli-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/mraa_upm/java/mraa.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/mraa_upm/java/upm_i2clcd.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/mraa_upm/java/upm_grove.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/mraa_upm/java/upm_t3311.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/mraa_upm/java/upm_buzzer.jar"/>
+	<classpathentry kind="lib" path="/home/peftime/jars/mraa_upm/java/upm_ttp223.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
